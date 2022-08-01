@@ -2,7 +2,7 @@ package com.day0801;
 
 import java.util.Scanner;
 
-public class BaekJoon17478 {
+public class BaekJoon17478_Recursion {
 	static String plus = "";
 
 	static void print(int n) {

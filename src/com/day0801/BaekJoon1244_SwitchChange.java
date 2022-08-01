@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BJ1244 {
+public class BaekJoon1244_SwitchChange {
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -66,6 +66,7 @@ public class BJ1244 {
 				}
 			}
 		}
+		// 출력
 		System.out.print(switches[0]);
 		for (int i = 1; i < N; i++) {
 			if (i % 20 == 0) {
