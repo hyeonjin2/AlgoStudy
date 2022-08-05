@@ -15,27 +15,28 @@ public class BaekJoon2493_Top {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		Stack<Integer> numbers = new Stack<>();
 		Stack<Integer> idx = new Stack<>();
-		int[] result = new int[N];
-		for (int i = 0; i < N; i++) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(0);
+		for (int i = 1; i <= N; i++) {
 			int num = Integer.parseInt(st.nextToken());
 			if (numbers.isEmpty()) {
 				numbers.push(num);
+				idx.push(0);
 				idx.push(0);
 				continue;
 			}
 			if (numbers.peek() < num) {
 				numbers.pop();
 				idx.pop();
+				sb.append(" "+ idx.peek());
 				numbers.push(num);
 				idx.push(i);
-			}else {
-				
+			} else {
+				sb.append(" "+ idx.peek());
+				numbers.push(num);
+				idx.push(i);
 			}
 		}
-		StringBuilder sb = new StringBuilder();
-		for (int i = 0; i < N; i++) {
-			sb.append(idx.pop());
-		}
-		
+		System.out.print(sb);
 	}
 }
