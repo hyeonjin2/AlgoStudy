@@ -44,14 +44,12 @@ public class BaekJoon1149_RGB2 {
 			totalCnt++;
 			return;
 		}
-		for (int i = cnt; i < N; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (j == pre_idx) {
-					continue;
-				}
-				selected[cnt] = prices[cnt][j];
-				comb(cnt + 1, j);
+		for (int j = 0; j < 3; j++) {
+			if (j == pre_idx) {
+				continue;
 			}
+			selected[cnt] = prices[cnt][j];
+			comb(cnt + 1, j);
 		}
 	}
 }
