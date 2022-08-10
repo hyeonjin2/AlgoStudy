@@ -62,7 +62,7 @@ public class BaekJoon16926_MarixRotation2 {
 		result[row][col] = list.poll();
 		int next_row = row + dr[dir];
 		int next_col = col + dc[dir];
-		if (next_row < 0 || next_row >= N || next_col < 0 || next_col >= M||result[next_row][next_col] != 0) {
+		if (next_row < 0 || next_row >= N || next_col < 0 || next_col >= M || result[next_row][next_col] != 0) {
 			dir = (dir + 1) % 4;
 			next_row = row + dr[dir];
 			next_col = col + dc[dir];
