@@ -1,5 +1,6 @@
 package com.day0811;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SW5215_HamburgerDiet2 {
@@ -32,6 +33,7 @@ public class SW5215_HamburgerDiet2 {
 	private static void subSet(int index) {// index:부분집합에 고려할 대상 원소의 인덱스
 		if (index == N) { // 더이상 고려할 원소가 없다면 부분집합의 구성이 완성
 			check(); // 부분집합이 만들어지면 조건에 맞는지 확인
+			System.out.println(Arrays.toString(isSelected));
 			return;
 		}
 		// 원소 선택
