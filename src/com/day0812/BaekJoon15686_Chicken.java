@@ -22,7 +22,6 @@ public class BaekJoon15686_Chicken {
 
 	static int N, M;
 	static int[][] map;
-	static int[][] distance;
 	static List<Point> chicken;
 	static Point[] selected;
 	static List<Point> client;
@@ -61,17 +60,8 @@ public class BaekJoon15686_Chicken {
 		if (cnt == M) {
 			// 도시의 치킨 거리 구하기
 			// 각 가정집에서의 치킨 거리 구하기
-			distance = new int[N][N];
-			for (int i = 0; i < M; i++) {
-				calc(selected[i]);
-			}
-			int sum = 0;
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					sum += distance[i][j];
-				}
-			}
-			result = result > sum ? sum : result;
+
+			result = result > calc2() ? calc2() : result;
 			return;
 		}
 		for (int i = start; i < chicken.size(); i++) { // 치킨집의 수 만큼 for문을 돌린다.
@@ -80,32 +70,18 @@ public class BaekJoon15686_Chicken {
 		}
 	}
 
-	// 치킨집 좌표와 가정집 좌표과 치킨 거리를 계산
-	private static void calc(Point chicken) { // 치킨집 좌표
-		for (int i = 0; i < client.size(); i++) { // 가정집의 수 만큼 for문을 돌린다.
-			Point tmp = client.get(i);
-			int diff = Math.abs(chicken.r - tmp.r) + Math.abs(chicken.c - tmp.c);
-			int dis = distance[tmp.r][tmp.c];
-			if (dis == 0) {
-				distance[tmp.r][tmp.c] = diff;
-			} else {
-				distance[tmp.r][tmp.c] = Math.min(dis, diff);
+	private static int calc2() {
+		int sum = 0;
+		for (int i = 0; i < client.size(); i++) {
+			int tmp = Integer.MAX_VALUE;
+			for (int j = 0; j < selected.length; j++) {
+				Point c = client.get(i);
+				Point s = selected[j];
+				int diff = Math.abs(c.r - s.r) + Math.abs(c.c - s.c);
+				tmp = tmp > diff ? diff : tmp;
 			}
+			sum += tmp;
 		}
+		return sum;
 	}
-
-//	private static int calc2() {
-//		int sum = 0;
-//		for (int i = 0; i < client.size(); i++) {
-//			int tmp = Integer.MAX_VALUE;
-//			for (int j = 0; j < selected.length; j++) {
-//				Point c = client.get(i);
-//				Point s = selected[j];
-//				int diff = Math.abs(c.r - s.r) + Math.abs(c.c - s.c);
-//				tmp = tmp > diff ? diff : tmp;
-//			}
-//			sum += tmp;
-//		}
-//		return sum;
-//	}
 }
