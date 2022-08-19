@@ -60,12 +60,3 @@ public class SW3234_DoubleArmedScale {
 		}
 	}
 }
-/*
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
