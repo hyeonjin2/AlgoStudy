@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class BaekJoon17135_CastleDepense {
+public class BaekJoon17135_CastleDepense2 {
 
 	static int N, M, D, cntKill, answer;
 	static int tmpN;
@@ -82,14 +82,14 @@ public class BaekJoon17135_CastleDepense {
 			Point archer = new Point(tmpN, selected[k]);
 			// 적과의 거리 계산 후 공격할 수 있는 범위의 적 배열에 저장
 			enemy = new ArrayList<Enemy>();
-			for (int i = 0; i < tmpN; i++) {
+			for (int i = tmpN - 1; i >= 0; i--) {
 				for (int j = 0; j < M; j++) {
+					// 궁수와의 거리 계산
+					int distance = Math.abs(i - archer.x) + Math.abs(j - archer.y);
 					// 배열의 값이 1이면 -> 적이 있으면
-					if (game[i][j] == 1) { // 궁수와의 거리 계산
-						int distance = Math.abs(i - archer.x) + Math.abs(j - archer.y);
+					if (distance <= D && game[i][j] == 1) {
 						// 공격할 수 있는 범위 내의 적이면 리스트에 저장
-						if (distance <= D)
-							enemy.add(new Enemy(new Point(i, j), distance));
+						enemy.add(new Enemy(new Point(i, j), distance));
 					}
 				}
 			}
