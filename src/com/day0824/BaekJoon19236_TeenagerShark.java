@@ -84,6 +84,7 @@ public class BaekJoon19236_TeenagerShark {
 			// 상어가 있거나 경계를 넘으면 이동 X -> 물고기는 이동할 수 있는 칸을 향할 때까지 방향이 45도 반시계 회전한다.
 			if (next.x < 0 || next.x >= 4 || next.y < 0 || next.y >= 4 || fishes[next.x][next.y].equals(shark)) {
 				// 물고기의 이동방향 정하기
+				System.out.println(next.n + " " + next.d);
 				d = setDir(next);
 				next = new Fish(cur.x + dx[d], cur.y + dy[d], cur.n, d);
 				System.out.println(next.n + " " + next.d);
@@ -93,18 +94,20 @@ public class BaekJoon19236_TeenagerShark {
 				Fish tmp = fishes[next.x][next.y];
 				fishes[next.x][next.y] = next;
 				fishes[cur.x][cur.y] = tmp;
+				System.out.println("switch" + next + "<->" + tmp);
 			}
-			print(fishes);
+//			print(fishes);
 		}
 	}
 
 	// 물고기의 이동방향 정하기
 	private static int setDir(Fish cur) {
-		int d = cur.d;
+		int d = (cur.d + 1) % 8;
 		Fish next = new Fish(cur.x + dx[d], cur.y + dy[d], cur.n, d);
-		while (next.x < 0 || next.x >= 4 || next.y < 0 || next.y >= 4 || fishes[next.x][next.y].equals(shark)) {
-			d = (d + 1) % 8;
-			next = new Fish(cur.x + dx[d], cur.y + dy[d], cur.n, d);
+		System.out.println(next.n + " " + next.d);
+		if (next.x < 0 || next.x >= 4 || next.y < 0 || next.y >= 4 || fishes[next.x][next.y].equals(shark)) {
+//			System.out.println(next.n + " " + d);
+			d = setDir(next);
 		}
 		return d;
 	}
