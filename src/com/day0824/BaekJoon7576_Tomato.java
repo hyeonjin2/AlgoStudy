@@ -40,7 +40,6 @@ public class BaekJoon7576_Tomato {
 	// 4방 탐색 델타 배열 상,하,좌,우
 	static int[] dx = { -1, 1, 0, 0 };
 	static int[] dy = { 0, 0, -1, 1 };
-	static int time;
 
 	private static void bfs() {
 		while (!queue.isEmpty()) {
