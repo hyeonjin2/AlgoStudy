@@ -9,7 +9,8 @@ import java.util.Arrays;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class BaekJoon4485_Zelda2 {
+//녹색 옷 입은 애가 젤다지? BFS 풀이
+public class BaekJoon4485_ZeldaBFS {
 
 	static int N, Ans;
 	static boolean[][] visited;

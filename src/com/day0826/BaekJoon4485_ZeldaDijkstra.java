@@ -7,7 +7,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BaekJoon4485_Zelda {
+// 녹색 옷 입은 애가 젤다지? 다익스트라 풀이
+public class BaekJoon4485_ZeldaDijkstra {
 
 	static int N, Ans;
 	static boolean[][] visited;
