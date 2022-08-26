@@ -5,24 +5,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 // 녹색 옷 입은 애가 젤다지? 다익스트라 풀이
 public class BaekJoon4485_ZeldaDijkstra {
 
-	static int N, Ans;
+	static int N, Ans, total;
 	static boolean[][] visited;
 	static int[][] map, D;
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		int cnt = 0;
+		int tc = 0;
 		while (true) {
 			N = Integer.parseInt(br.readLine());
 			if (N == 0)
 				break;
-			cnt++;
+			tc++;
 			StringTokenizer st;
 			map = new int[N][N];
 			for (int i = 0; i < N; i++) {
@@ -37,56 +38,42 @@ public class BaekJoon4485_ZeldaDijkstra {
 				Arrays.fill(D[i], Integer.MAX_VALUE);
 			}
 			Ans = Integer.MAX_VALUE;
-			search(new Point(0, 0));
-			sb.append("Problem ").append(cnt).append(": ").append(Ans).append("\n");
+			search();
+			sb.append("Problem ").append(tc).append(": ").append(Ans).append("\n");
 		}
 		System.out.println(sb);
 	}
 
-	static int[] dx = { 0, -1, 1, 0, 0 };
-	static int[] dy = { 0, 0, 0, -1, 1 };
+	static int[] dx = { -1, 1, 0, 0 };
+	static int[] dy = { 0, 0, -1, 1 };
 
-	private static void search(Point start) {
+	private static void search() {
+		PriorityQueue<int[]> pQueue = new PriorityQueue<>((e1, e2) -> e1[2] - e2[2]);
+		D[0][0] = map[0][0];
 		// 출발 정점 처리
-		D[start.x][start.y] = map[start.x][start.y];
-		int min;
-		Point minPoint;
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				min = Integer.MAX_VALUE;
-				minPoint = new Point(-1, -1);
-				// step1. 미방문 정점 중 출발지에서 자신으로의 비용이 최소인 정점 선택
-				// 방문해야하는 나머지 정점 중 출발지에서 가장 가까운 정점 찾기
-				for (int d = 0; d < 5; d++) {
-					int nx = i + dx[d];
-					int ny = j + dy[d];
-					if (nx < 0 || nx >= N || ny < 0 || ny >= N)
-						continue;
-					if (!visited[nx][ny] && min > D[nx][ny]) {
-						min = D[nx][ny];
-						minPoint = new Point(nx, ny);
-					}
-				}
-				if (minPoint.x == -1 || minPoint.y == -1)
+		pQueue.offer(new int[] { 0, 0, map[0][0] });
+		while (!pQueue.isEmpty()) {
+			int[] cur = pQueue.poll();
+			// 목적지에 도착했으면 리턴
+			if (visited[cur[0]][cur[1]])
+				continue;
+			if (cur[0] == -1 && cur[1] == -1) {
+				Ans = total;
+				return;
+			}
+			visited[cur[0]][cur[1]] = true;
+			total = cur[2];
+			for (int d = 0; d < 4; d++) {
+				int nx = cur[0] + dx[d];
+				int ny = cur[1] + dy[d];
+				if (nx < 0 || nx >= N || ny < 0 || ny >= N)
 					continue;
-				// 방문 처리
-				visited[minPoint.x][minPoint.y] = true;
-				System.out.println(i + " " + j + minPoint);
-				D[minPoint.x][minPoint.y] = min;
-				print(D);
-				// 선택된 정점을 경유지로 해서 미방문 정점들로 가는 비용을 따져보고 기존 최적해보다 유리하면 갱신
-				for (int d = 1; d < 5; d++) {
-					int nx = minPoint.x + dx[d];
-					int ny = minPoint.y + dy[d];
-					if (nx < 0 || nx >= N || ny < 0 || ny >= N)
-						continue;
-					if (!visited[nx][ny] && D[nx][ny] > D[minPoint.x][minPoint.y] + map[nx][ny]) {
-						D[nx][ny] = D[minPoint.x][minPoint.y] + map[nx][ny];
-					}
+				if (!visited[nx][ny] && D[nx][ny] > total + map[nx][ny]) {
+					D[nx][ny] = total + map[nx][ny];
+					pQueue.offer(new int[] { nx, ny, D[nx][ny] });
 				}
 			}
 		}
-		Ans = D[N - 1][N - 1];
 	}
 
 	static void print(int[][] arr) {

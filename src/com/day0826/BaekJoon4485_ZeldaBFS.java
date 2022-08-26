@@ -19,12 +19,12 @@ public class BaekJoon4485_ZeldaBFS {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		int cnt = 0;
+		int tc = 0;
 		while (true) {
 			N = Integer.parseInt(br.readLine());
 			if (N == 0)
 				break;
-			cnt++;
+			tc++;
 			StringTokenizer st;
 			map = new int[N][N];
 			for (int i = 0; i < N; i++) {
@@ -41,7 +41,7 @@ public class BaekJoon4485_ZeldaBFS {
 			Ans = Integer.MAX_VALUE;
 			bfs(new Point(0, 0));
 			Ans = D[N - 1][N - 1];
-			sb.append("Problem ").append(cnt).append(": ").append(Ans).append("\n");
+			sb.append("Problem ").append(tc).append(": ").append(Ans).append("\n");
 		}
 		System.out.println(sb);
 	}
