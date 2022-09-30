@@ -9,7 +9,7 @@ public class BaekJoon1463 {
 		Scanner sc = new Scanner(System.in);
 		int N = sc.nextInt();
 
-		int[] d = new int[N + 1];
+		int[] d = new int[N + 1]; // d[n]:n을 1로 만들때 필요한 최소 연산 횟수
 		d[1] = 0;
 		for (int i = 2; i <= N; i++) {
 			d[i] = d[i - 1] + 1;
