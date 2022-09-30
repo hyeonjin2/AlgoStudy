@@ -3,13 +3,14 @@ package com.day0930;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.PriorityQueue;
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 // 말이 되고픈 원숭이
-public class BaekJoon1600 {
+public class BaekJoon1600_BFS {
 
-	static class Point implements Comparable<Point> {
+	static class Point {
 		int x, y;
 		int k, t;
 
@@ -20,10 +21,6 @@ public class BaekJoon1600 {
 			this.t = t;
 		}
 
-		@Override
-		public int compareTo(Point o) {
-			return this.t - o.t;
-		}
 	}
 
 	static int N, M, Ans, totalCnt;
@@ -58,7 +55,7 @@ public class BaekJoon1600 {
 	static int[] dy2 = { -2, -1, 1, 2, -2, -1, 1, 2 };
 
 	private static int bfs(Point start) {
-		PriorityQueue<Point> queue = new PriorityQueue<>();
+		Queue<Point> queue = new ArrayDeque<>();
 		queue.offer(start);
 		boolean[][][] visited = new boolean[N][M][start.k + 1];
 		visited[0][0][start.k] = true;
