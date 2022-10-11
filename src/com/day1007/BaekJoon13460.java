@@ -10,11 +10,21 @@ import java.util.StringTokenizer;
 // 구슬 탈출2
 public class BaekJoon13460 {
 
+	static class Ball {
+		int x, y;
+		int cnt;
+
+		public Ball(int x, int y, int cnt) {
+			this.x = x;
+			this.y = y;
+			this.cnt = cnt;
+		}
+	}
+
 	static int N, M, Ans;
 	static char[][] board, copy;
-	static int[] order;
 	static boolean success, fail;
-	static Point blue, red;
+	static Ball blue, red;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,40 +38,49 @@ public class BaekJoon13460 {
 			for (int j = 0; j < M; j++) {
 				board[i][j] = str.charAt(j);
 				if (board[i][j] == 'B')
-					blue = new Point(i, j);
+					blue = new Ball(i, j, 0);
 				else if (board[i][j] == 'R')
-					red = new Point(i, j);
+					red = new Ball(i, j, 0);
 			}
 		}
 //		print(board);
 		// 구슬판을 기울일 순서 정하기 -> 중복순열
-		System.out.println(red + " " + blue);
-		order = new int[10];
 		rollBall(board, 3);
-//		perm(0);
+		perm(0, -1);
+		System.out.println(Ans);
 	}
 
-	private static void perm(int cnt) {
+	private static void perm(int cnt, int temp) {
 		if (cnt == 10) {
-			System.out.println(Arrays.toString(order));
 			Ans = -1;
-			return;
+			System.out.println(Ans);
+			System.exit(0);
 		}
 		for (int i = 0; i < 4; i++) {
-			order[cnt] = i;
+			if (temp == i)
+				continue;
 			// 구슬 굴려보기
 			copy = new char[N][M];
 			copy = board;
+			success = false;
+			fail = false;
 			rollBall(copy, i);
+			System.out.println(cnt);
+			print(copy);
 			// 파란 구슬이 구멍 위치에 있는지 확인 -> 가지치기
 			if (fail) {
-				perm(cnt);
+				perm(cnt + 1, i);
 			}
-			if (success) {
+			// 빨간색 구슬이 들어간다면 -> 끝내기
+			else if (success) {
 				Ans = cnt + 1;
 				return;
 			}
-			perm(cnt + 1);
+			// 위의 상황이 아니라면 다음 순서 뽑으러 가기
+			else {
+				board = copy;
+				perm(cnt + 1, i);
+			}
 		}
 	}
 
@@ -77,15 +96,13 @@ public class BaekJoon13460 {
 		boolean rEsc = false;
 		boolean bEsc = false;
 		// 빨간 구슬 굴리기
-		while (rx >= 1 && rx <= N - 1 && ry >= 1 && ry <= M - 1) {
+		while (rx >= 0 && rx < N && ry >= 0 && ry < M) {
 			// 벽을 만나면 더 이상 못감.
 			// 몇 칸을 굴러서 갔는지 체크 -> 파란 구슬과 같은 곳에 위치할 경우 우선순위를 결정하기 위해
 			if (copy[rx][ry] == '#') {
-				System.out.println("in");
 				copy[red.x][red.y] = '.';
 				red.x = rx - dx[dir];
 				red.y = ry - dy[dir];
-				copy[red.x][red.y] = 'R';
 				break;
 			}
 			// 구멍을 만나면 일단 빠져나오기
@@ -101,13 +118,12 @@ public class BaekJoon13460 {
 		int bx = blue.x + dx[dir];
 		int by = blue.y + dy[dir];
 		int bnt = 1;
-		while (bx >= 1 && bx < N - 1 && by >= 1 && by < M - 1) {
+		while (bx >= 0 && bx < N && by >= 0 && by < M) {
 			// 벽을 만나면 더 이상 못감.
 			if (copy[bx][by] == '#') {
 				copy[blue.x][blue.y] = '.';
 				blue.x = bx - dx[dir];
 				blue.y = by - dy[dir];
-				copy[blue.x][blue.y] = 'B';
 				break;
 			}
 			// 구멍을 만나면 일단 빠져나오기
@@ -119,17 +135,21 @@ public class BaekJoon13460 {
 			by += dy[dir];
 			bnt++;
 		}
+		// 둘의 좌표가 같은 경우
+		if (red.x == blue.x && red.y == blue.y) {
+			if (rnt < bnt) {
+				blue.x -= dx[dir];
+				blue.y -= dy[dir];
+			} else {
+				red.x -= dx[dir];
+				red.y -= dy[dir];
+			}
+		}
+		copy[red.x][red.y] = 'R';
+		copy[blue.x][blue.y] = 'B';
 		// 둘 다 탈출 가능한 경우
 		if (rEsc && bEsc) {
-			// 누가 먼저 탈출했는지 따지기
-			// 빨간 구슬이 먼저 탈출한 경우
-			if (rnt < bnt) {
-				success = true;
-			}
-			// 파란 구슬이 먼저 탈출한 경우
-			else {
-				fail = true;
-			}
+			fail = true;
 		}
 		// 파란 구슬만 탈출 가능한 경우
 		else if (bEsc) {
@@ -139,7 +159,6 @@ public class BaekJoon13460 {
 		else if (rEsc) {
 			success = true;
 		}
-		print(copy);
 	}
 
 	private static void print(char[][] arr) {
