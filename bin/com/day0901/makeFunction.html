@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Insert title here</title>
+  <script type="text/javascript">
+    // 1. max(a, b): 숫자 두개를 입력 받아 큰 수를 리턴 return (a > b)? a: b;
+    function max(a, b) {
+      return (a > b) ? a : b;
+    }
+    // 2. printName(name): 이름을 입력 받아 그 앞에 'hello!'를 붙여 브라우저에 출력
+    function printName(name) {
+      document.write("hello! " + name + "<br>");
+      console.log("hello! " + name);
+    }
+    // 3. getArea(r): 반지름 r을 입력 받아 원면적을 계산해 리턴
+    function getArea(r) {
+      return Math.PI * r * r;
+    }
+    // 4. reverse(flag): boolean 값 한개를 입력 받아 그 반대의 값을 리턴 return !flag
+    function reverse(flag) {
+      return !flag;
+    }
+    // 5. sum(arr): 정수형 배열 하나를 입력 받아 그 안의 값을 모두 더해 리턴
+    function sum(arr) {
+      var sum = 0;
+      for (const i in arr) {
+        sum += i;
+      }
+      return sum;
+    }
+    // 6. loopString(msg, count): 문자열 msg를 count번 만큼 반복해 브라우저에 한줄에 하나씩 출력
+    function loopString(msg, count) {
+      for (var i = 0; i < count; i++) {
+        document.write("Sweet " + msg + "<br>");
+        console.log("Sweet " + msg);
+      }
+    }
+    // 7. calc(a, b, op):숫자 두개와(a, b)와 연산자(op: +,-,*, - 중 하나) 하나를 입력 받아 연산 수행 후 결과를 alert()로 출력
+    function calc(a, b, op) {
+      switch (op) {
+        case '+':
+          return (a + b);
+          break;
+        case '-':
+          return (a - b);
+          break;
+        case '*':
+          return (a * b);
+          break;
+        case '/':
+          return (a / b);
+          break;
+      }
+    }
+    // 8. getLength(str): 전달 받은 str문자열의 길이 출력
+    function getLength(str) {
+      return str.length;
+    }
+    // 9. showAlert(msg): 전달 받은 문자열 내용으로 경고창 띄우기
+    function showAlert(msg) {
+      alert(msg);
+    }
+    // 10. absSum(x,y): 두 숫자의 절대값의 합 리턴
+    function absSum(x, y) {
+      return Math.abs(x) + Math.abs(y);
+    }
+    // var title = document.createElement("h2");
+    // var result = document.createTextNode(max(1, 2));
+    // title.appendChild(result);
+    printName("Herry Porter");
+    // getArea(r)
+    // reverse(flag)
+    // sum(arr)
+    loopString("Peach", 5);
+    calc(10, 5, '+');
+    // getLength(str)
+    showAlert("Good Job!!")
+    // absSum(x, y)
+  </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>
