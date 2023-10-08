@@ -1,0 +1,24 @@
+package com.day1013;
+
+import java.util.Scanner;
+
+// 이항 계수
+public class SW3238 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int T = sc.nextInt();
+		for (int tc = 1; tc <= T; tc++) {
+			int n = sc.nextInt();
+			int r = sc.nextInt();
+			int p = sc.nextInt();
+
+			int[] fact = new int[n + 1];
+			fact[0] = 1;
+			for (int i = 1; i <= p; i++) {
+				fact[i] = (i * fact[i - 1]) % p;
+			}
+
+		}
+	}
+}

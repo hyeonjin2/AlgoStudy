@@ -1,15 +1,13 @@
-package com.day1005;
+package com.day1011;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-// 달이 떠오른다, 가자.
-public class BaekJoon1194_bit {
-
-	static int N, M;
+// 주사위 굴리기
+public class BaekJoon14499 {
 
 	public static void main(String[] args) {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+		
 	}
 }
